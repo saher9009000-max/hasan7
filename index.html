@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <title>بوصلة — قبلتك ومواقيتك</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">تخطَّ إلى المحتوى الرئيسي</a>
+
+  <header class="app-header" role="banner">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">🧭</span>
+      <h1>بوصلة</h1>
+    </div>
+    <div class="header-actions">
+      <button id="themeToggle" class="icon-btn" aria-label="تغيير ألوان الموقع" title="تغيير الألوان">
+        <span aria-hidden="true">🎨</span>
+      </button>
+      <button id="locateBtn" class="icon-btn" aria-label="تحديد موقعي" title="تحديد الموقع">
+        <span aria-hidden="true">📍</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" role="main">
+    <!-- البوصلة -->
+    <section class="card compass-card" aria-labelledby="compassTitle">
+      <h2 id="compassTitle" class="sr-only">البوصلة واتجاه القبلة</h2>
+      <div class="compass-wrapper">
+        <div class="compass-ring" id="compassRing" aria-hidden="true">
+          <div class="compass-needle" id="compassNeedle"></div>
+          <div class="qibla-marker" id="qiblaMarker" title="اتجاه القبلة"></div>
+        </div>
+        <div class="compass-info" aria-live="polite">
+          <p class="heading-value"><span id="headingValue">0°</span></p>
+          <p class="heading-label">الاتجاه الحالي</p>
+          <p class="qibla-value"><span id="qiblaValue">—°</span></p>
+          <p class="heading-label">اتجاه القبلة</p>
+          <p class="accuracy-label" id="accuracyLabel">الدقة: —</p>
+        </div>
+      </div>
+      <div class="compass-status" id="compassStatus" role="status" aria-live="polite">
+        اضغط على "تحديد الموقع" لبدء البوصلة.
+      </div>
+      <button id="enableCompassBtn" class="primary-btn">تفعيل البوصلة</button>
+    </section>
+
+    <!-- التقويم -->
+    <section class="card calendar-card" aria-labelledby="calendarTitle">
+      <h2 id="calendarTitle">التقويم</h2>
+      <div class="calendar-nav">
+        <button id="prevMonth" class="icon-btn" aria-label="الشهر السابق">‹</button>
+        <div class="calendar-current" aria-live="polite">
+          <p id="gregorianDate" class="date-main"></p>
+          <p id="hijriDate" class="date-sub"></p>
+        </div>
+        <button id="nextMonth" class="icon-btn" aria-label="الشهر التالي">›</button>
+      </div>
+      <div class="date-search">
+        <label for="searchDate" class="sr-only">البحث عن تاريخ</label>
+        <input type="date" id="searchDate" aria-label="البحث عن تاريخ ميلادي">
+        <button id="searchBtn" class="secondary-btn">انتقال</button>
+        <button id="todayBtn" class="secondary-btn">اليوم</button>
+      </div>
+      <ul class="reminders" id="remindersList" aria-label="تذكيرات المناسبات">
+        <!-- تُملأ ديناميكيًا -->
+      </ul>
+    </section>
+
+    <!-- حاسبة العمر -->
+    <section class="card age-card" aria-labelledby="ageTitle">
+      <h2 id="ageTitle">حاسبة العمر</h2>
+      <div class="age-form">
+        <label for="birthDate">تاريخ الميلاد</label>
+        <input type="date" id="birthDate" aria-describedby="ageHint">
+        <select id="calendarType" aria-label="نوع التقويم">
+          <option value="gregorian">ميلادي</option>
+          <option value="hijri">هجري (أم القرى)</option>
+        </select>
+        <button id="calcAgeBtn" class="primary-btn">احسب العمر</button>
+      </div>
+      <p id="ageHint" class="hint">اختر التاريخ ثم اضغط "احسب العمر".</p>
+      <div id="ageResult" class="age-result" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- مواقيت الصلاة -->
+    <section class="card prayer-card" aria-labelledby="prayerTitle">
+      <h2 id="prayerTitle">مواقيت الصلاة</h2>
+      <div class="prayer-controls">
+        <label for="methodSelect">طريقة الحساب</label>
+        <select id="methodSelect" aria-label="طريقة حساب مواقيت الصلاة">
+          <option value="MuslimWorldLeague">رابطة العالم الإسلامي</option>
+          <option value="NorthAmerica">ISNA — أمريكا الشمالية</option>
+          <option value="Egyptian">الهيئة المصرية العامة للمساحة</option>
+          <option value="UmmAlQura">أم القرى — مكة المكرمة</option>
+          <option value="Karachi">جامعة العلوم الإسلامية — كراتشي</option>
+        </select>
+        <label for="madhabSelect">المذهب (وقت العصر)</label>
+        <select id="madhabSelect" aria-label="اختيار المذهب لحساب العصر">
+          <option value="shafi">الشافعي (قياسي)</option>
+          <option value="hanafi">الحنفي (متأخر)</option>
+        </select>
+        <label for="highLatSelect">خطوط العرض العالية</label>
+        <select id="highLatSelect" aria-label="قاعدة خطوط العرض العالية">
+          <option value="MiddleOfTheNight">منتصف الليل</option>
+          <option value="SeventhOfTheNight">سُبع الليل</option>
+          <option value="TwilightAngle">زاوية الشفق</option>
+        </select>
+      </div>
+      <div class="prayer-offsets">
+        <details>
+          <summary>ضبط إزاحات يدوية (دقائق)</summary>
+          <div class="offset-grid" id="offsetGrid">
+            <!-- تُملأ ديناميكيًا -->
+          </div>
+        </details>
+      </div>
+      <div class="prayer-table-wrapper">
+        <table class="prayer-table" aria-label="جدول مواقيت الصلاة">
+          <thead>
+            <tr><th>الصلاة</th><th>الوقت</th></tr>
+          </thead>
+          <tbody id="prayerTableBody">
+            <!-- تُملأ ديناميكيًا -->
+          </tbody>
+        </table>
+      </div>
+      <p class="prayer-source" id="prayerSource"></p>
+      <button id="refreshPrayerBtn" class="secondary-btn">تحديث المواقيت</button>
+    </section>
+
+    <!-- تذكير النوم -->
+    <section class="card sleep-card" aria-labelledby="sleepTitle">
+      <h2 id="sleepTitle">تذكير النوم</h2>
+      <div class="sleep-form">
+        <label for="sleepTime">وقت النوم</label>
+        <input type="time" id="sleepTime" value="22:30">
+        <label for="wakeTime">وقت الاستيقاظ</label>
+        <input type="time" id="wakeTime" value="06:00">
+        <button id="calcSleepBtn" class="primary-btn">احسب مدة النوم</button>
+      </div>
+      <p id="sleepResult" class="sleep-result" role="status" aria-live="polite"></p>
+      <p class="hint">سيتم تذكيرك قبل موعد النوم بـ 15 دقيقة (إذا منحت الإذن).</p>
+    </section>
+  </main>
+
+  <footer class="app-footer" role="contentinfo">
+    <p>بوصلة — نتائج دقيقة بفضل Adhan.js وتقويم أم القرى.</p>
+    <p class="small">جميع الحسابات تُجرى محليًا. الموقع لا يخزن بيانات شخصية.</p>
+  </footer>
+
+  <!-- مكتبات خارجية -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
